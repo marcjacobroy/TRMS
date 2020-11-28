@@ -45,6 +45,12 @@ public class EmployeeDaoPostgresTest {
 	private String TEST_EMPLOYEE_FIRST_NAME = "Marc";
 	private String TEST_EMPLOYEE_LAST_NAME = "Roy";
 	private String TEST_EMPLOYEE_EMAIL = "mroy@college.harvard.edu";
+	private int TEST_EMPLOYEE_TYPE = 1;
+	private int TEST_EMPLOYEE_REPORTS_TO = 13;
+	private int TEST_EMPLOYEE_AWARD_AMOUNT = 0;
+	private int TEST_EMPLOYEE_PENDING_AMOUNT = 0;
+	private int TEST_EMPLOYEE_DEPARTMENT = 1;
+	private int TEST_EMPLOYEE_BEN_CO = 13;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -53,12 +59,16 @@ public class EmployeeDaoPostgresTest {
 		
 		employeeDao.setConnUtil(connUtil);
 		
-		utilStmt = realConnection.prepareStatement("insert into employee (type, reports_to, first_name, last_name, email) values(?, ?, ?, ?, ?)");
-		utilStmt.setInt(1, 0);
-		utilStmt.setInt(2, 0);
-		utilStmt.setString(3, "Marc");
-		utilStmt.setString(4, "Roy");
-		utilStmt.setString(5,  "mroy@college.harvard.edu");
+		utilStmt = realConnection.prepareStatement("insert into employee (type, reports_to, first_name, last_name, email, award_amount, pending_amount, department, ben_co) values(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+		utilStmt.setInt(1, TEST_EMPLOYEE_TYPE);
+		utilStmt.setInt(2, TEST_EMPLOYEE_REPORTS_TO);
+		utilStmt.setString(3, TEST_EMPLOYEE_FIRST_NAME);
+		utilStmt.setString(4, TEST_EMPLOYEE_LAST_NAME);
+		utilStmt.setString(5,  TEST_EMPLOYEE_EMAIL);
+		utilStmt.setInt(6, TEST_EMPLOYEE_AWARD_AMOUNT);
+		utilStmt.setInt(7, TEST_EMPLOYEE_PENDING_AMOUNT);
+		utilStmt.setInt(8, TEST_EMPLOYEE_DEPARTMENT);
+		utilStmt.setInt(9, TEST_EMPLOYEE_BEN_CO);
 		utilStmt.executeUpdate();
 		
 		utilStmt = realConnection.prepareStatement("select employee_id from employee where first_name = ? and last_name = ? and email = ?");
@@ -103,10 +113,10 @@ public class EmployeeDaoPostgresTest {
 	@Test
 	public void createEmployeeTest() throws SQLException {
 		
-		Employee employee = new Employee(0, 0, "Marc", "Roy", "mroy@college.harvard.edu");
+		Employee employee = new Employee(TEST_EMPLOYEE_TYPE, TEST_EMPLOYEE_REPORTS_TO, "MarcJ", "RoyJ", "mroy@college.harvard.edu", 0, 0, TEST_EMPLOYEE_DEPARTMENT, TEST_EMPLOYEE_BEN_CO);
 		
 		try {
-			 String sql = "insert into employee (type, reports_to, first_name, last_name, email) values(?, ?, ?, ?, ?)";
+			 String sql = "insert into employee (type, reports_to, first_name, last_name, email, award_amount, pending_amount, department, ben_co) values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			 initStmtHelper(sql);
 		} catch(SQLException e) {
 			fail("SQL exception thrown: " + e);
@@ -118,6 +128,10 @@ public class EmployeeDaoPostgresTest {
 			verify(spy).setString(3, employee.getFirstName());
 			verify(spy).setString(4, employee.getLastName());
 			verify(spy).setString(5,  employee.getEmail());
+			verify(spy).setInt(6, employee.getAwardAmount());
+			verify(spy).setInt(7, employee.getPendingAmount());
+			verify(spy).setInt(8, employee.getDepartment());
+			verify(spy).setInt(9, employee.getBenCo());
 			verify(spy).executeUpdate();
 		} catch(SQLException e) {
 			fail("SQL exception thrown: " + e);
@@ -133,10 +147,10 @@ public class EmployeeDaoPostgresTest {
 	@Test
 	public void updateEmployeeTest() throws SQLException {
 		
-		Employee newInfo = new Employee(1, 1, "MarcJ", "RoyJ", "marcjacobroy@gmail.com");
+		Employee newInfo = new Employee(TEST_EMPLOYEE_TYPE, TEST_EMPLOYEE_REPORTS_TO, "MarcJ", "RoyJ", "marcjacobroy@gmail.com", 500, 40, TEST_EMPLOYEE_DEPARTMENT, TEST_EMPLOYEE_BEN_CO);
 		
 		try {
-			String sql = "update employee set type = ?, reports_to = ?, first_name = ?, last_name = ?, email = ? where employee_id = ?";
+			String sql = "update employee set type = ?, reports_to = ?, first_name = ?, last_name = ?, email = ?, award_amount = ?, pending_amount = ?, department = ?, ben_co = ? where employee_id = ?";
 			initStmtHelper(sql);
 		} catch(SQLException e) {
 			fail("SQL exception thrown: " + e);
@@ -152,6 +166,11 @@ public class EmployeeDaoPostgresTest {
 		verify(spy).setString(3, newInfo.getFirstName());
 		verify(spy).setString(4, newInfo.getLastName());
 		verify(spy).setString(5, newInfo.getEmail());
+		verify(spy).setInt(6, newInfo.getAwardAmount());
+		verify(spy).setInt(7, newInfo.getPendingAmount());
+		verify(spy).setInt(8, newInfo.getDepartment());
+		verify(spy).setInt(9, newInfo.getBenCo());
+		verify(spy).setInt(10,  employeeId);
 		verify(spy).executeUpdate();
 		
 		utilStmt = realConnection.prepareStatement("delete from employee where first_name = ? and last_name = ? and email = ?");

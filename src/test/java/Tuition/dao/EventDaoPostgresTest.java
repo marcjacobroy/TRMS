@@ -46,8 +46,8 @@ public class EventDaoPostgresTest {
 	private String TEST_EVENT_LOCATION = "Concord NH";
 	private String TEST_EVENT_DESCRIPTION = "Course";
 	private int TEST_EVENT_COST = 0;
-	private int TEST_EVENT_GRADING_FORMAT = 0;
-	private int TEST_EVENT_TYPE = 0;
+	private int TEST_EVENT_GRADING_FORMAT = 1;
+	private int TEST_EVENT_TYPE = 1;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -76,7 +76,7 @@ public class EventDaoPostgresTest {
 		utilStmt.setInt(7,  TEST_EVENT_TYPE);
 		ResultSet rs = utilStmt.executeQuery();
 		rs.next();
-		TEST_EVENT_ID = rs.getInt("Event_id");
+		TEST_EVENT_ID = rs.getInt("event_id");
 		
 		
 		
@@ -85,7 +85,7 @@ public class EventDaoPostgresTest {
 	@After
 	public void tearDown() throws Exception {
 		
-		utilStmt = realConnection.prepareStatement("delete from Event where event_id = ?");
+		utilStmt = realConnection.prepareStatement("delete from event where event_id = ?");
 		utilStmt.setInt(1, TEST_EVENT_ID);
 		utilStmt.executeUpdate();
 		
@@ -133,6 +133,12 @@ public class EventDaoPostgresTest {
 		} catch(SQLException e) {
 			fail("SQL exception thrown: " + e);
 		}
+		
+		utilStmt = realConnection.prepareStatement("delete from event where date = ? and time = ? and location = ?");
+		utilStmt.setString(1, event.getDate().toString());
+		utilStmt.setString(2, event.getTime().toString());
+		utilStmt.setString(3, event.getLocation());
+		utilStmt.executeUpdate();
 	}
 
 	@Test
@@ -158,12 +164,6 @@ public class EventDaoPostgresTest {
 		verify(spy).setInt(7, newInfo.getType());
 		verify(spy).setInt(8,  TEST_EVENT_ID);
 		verify(spy).executeUpdate();
-		
-		utilStmt = realConnection.prepareStatement("delete from event where date = ? and time = ? and location = ?");
-		utilStmt.setString(1, newInfo.getDate().toString());
-		utilStmt.setString(2, newInfo.getTime().toString());
-		utilStmt.setString(3, newInfo.getLocation());
-		utilStmt.executeUpdate();
 	
 	}
 	

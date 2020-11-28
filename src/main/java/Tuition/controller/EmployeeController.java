@@ -28,8 +28,12 @@ public class EmployeeController {
 		
 		int type = Integer.parseInt(ctx.formParam("type"));
 		
+		int department = Integer.parseInt(ctx.formParam("department"));
+		
+		int benCo = Integer.parseInt(ctx.formParam("benCo"));
+		
 		try {
-			employeeService.createEmployee((new Employee(type, reportsTo, firstName, lastName, email)));
+			employeeService.createEmployee((new Employee(type, reportsTo, firstName, lastName, email, department, benCo)));
 			ctx.html("Created employee");
 		} catch (Exception e) {
 			ctx.html(String.valueOf(e));
@@ -67,8 +71,16 @@ public class EmployeeController {
 		
 		int employeeId = Integer.parseInt(ctx.formParam("employeeId"));
 		
+		int awardAmount = Integer.parseInt(ctx.formParam("awardAmount"));
+		
+		int pendingAmount = Integer.parseInt(ctx.formParam("pendingAmount"));
+		
+		int department = Integer.parseInt(ctx.formParam("department"));
+		
+		int benCo = Integer.parseInt(ctx.formParam("benCo"));
+		
 		try {
-			employeeService.updateEmployee(employeeId, (new Employee(type, reportsTo, firstName, lastName, email)));
+			employeeService.updateEmployee(employeeId, (new Employee(type, reportsTo, firstName, lastName, email, awardAmount, pendingAmount, department, benCo)));
 			ctx.html("Updated employee");
 		} catch (Exception e) {
 			ctx.html(String.valueOf(e));
