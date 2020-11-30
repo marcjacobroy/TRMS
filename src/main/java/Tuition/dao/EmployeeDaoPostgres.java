@@ -262,6 +262,7 @@ public class EmployeeDaoPostgres implements EmployeeDao {
 		}
 	}
 	
+	
 	public Employee makeEmployee(ResultSet rs) throws SQLException {
 		
 		String firstName = rs.getString("first_name");

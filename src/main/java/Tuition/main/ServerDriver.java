@@ -38,7 +38,7 @@ public class ServerDriver {
 		
 		app.post(EMPLOYEE_PATH +"/id", ctx -> employeeController.readEmployee(ctx));
 		app.get(EMPLOYEE_PATH + "s", ctx -> employeeController.readAllEmployees(ctx));
-		app.get(EMPLOYEE_PATH + "/ds", ctx -> employeeController.readDirectSupervisor(ctx));
+		app.post(EMPLOYEE_PATH + "/ds", ctx -> employeeController.readDirectSupervisor(ctx));
 		app.get(EMPLOYEE_PATH + "/dh", ctx -> employeeController.readDepartmentHead(ctx));
 		app.post(EMPLOYEE_PATH, ctx -> employeeController.createEmployee(ctx));
 		app.patch(EMPLOYEE_PATH, ctx -> employeeController.updateEmployee(ctx));
