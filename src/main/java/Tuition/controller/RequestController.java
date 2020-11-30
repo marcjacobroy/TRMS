@@ -1,5 +1,7 @@
 package Tuition.controller;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 
 import Tuition.pojos.Request;
@@ -48,7 +50,7 @@ public class RequestController {
 		
 		int requestId = Integer.parseInt(ctx.formParam("requestId"));
 		try {
-			ctx.html(requestService.readRequest(requestId).toString());
+			ctx.json(requestService.readRequest(requestId));
 		} catch(Exception e) {
 			log.warn("Exception was thrown " + String.valueOf(e));
 			ctx.html(String.valueOf(e));
@@ -77,7 +79,7 @@ public class RequestController {
 
 		try {
 			requestService.updateRequest(requestId, new Request(employeeId, eventId, justification, date, dsApproved, dhApproved, benCoApproved, currentWorker, complete, urgent, attachment, hoursMissed, dsApprovalProof, dhApprovalProof));
-			ctx.html("Created event");
+			ctx.html("Updated request");
 		} catch (Exception e) {
 			ctx.html(String.valueOf(e));
 			log.warn("Exception was thrown " + String.valueOf(e));
@@ -101,6 +103,50 @@ public class RequestController {
 				log.warn("Exception was thrown " + String.valueOf(e));
 				ctx.html(String.valueOf(e));
 			}
+		}
+		
+		public void readRequestsByEmployee(Context ctx) {
+			
+			log.trace("Entering readRequestsByEmployee in RequestController");
+			
+			int employeeId = Integer.valueOf(ctx.formParam("employeeId"));
+			
+			List<Request> requests = requestService.readRequestsByEmployee(employeeId);
+			
+			ctx.json(requests);
+		}
+		
+		public void readRequestsByDirectSupervisor(Context ctx) {
+			
+			log.trace("Entering readRequestsByDirectSupervisor in RequestController");
+			
+			int employeeId = Integer.valueOf(ctx.formParam("employeeId"));
+			
+			List<Request> requests = requestService.readRequestsByDirectSupervisor(employeeId);
+			
+			ctx.json(requests);
+		}
+		
+		public void readRequestsByDepartmentHead(Context ctx) {
+			
+			log.trace("Entering readRequestsByDepartmentHead in RequestController");
+			
+			int employeeId = Integer.valueOf(ctx.formParam("employeeId"));
+			
+			List<Request> requests = requestService.readRequestsByDepartmentHead(employeeId);
+			
+			ctx.json(requests);
+		}
+		
+		public void readRequestsByBenCo(Context ctx) {
+			
+			log.trace("Entering readRequestsByBenCo in RequestController");
+			
+			int employeeId = Integer.valueOf(ctx.formParam("employeeId"));
+			
+			List<Request> requests = requestService.readRequestsByBenCo(employeeId);
+			
+			ctx.json(requests);
 		}
 
 }

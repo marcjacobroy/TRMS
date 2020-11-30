@@ -6,7 +6,7 @@ import Tuition.pojos.Event;
 
 public interface EventService {
 	
-	public void createEvent(Event e);
+	public Event createEvent(Event e);
 	
 	public Event readEvent(int eventId) throws ParseException;
 	

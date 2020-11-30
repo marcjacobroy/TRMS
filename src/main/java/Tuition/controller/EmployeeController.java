@@ -6,6 +6,7 @@ import Tuition.service.EmployeeServiceFullStack;
 
 import io.javalin.http.Context;
 import org.apache.log4j.Logger;
+import java.util.List;
 
 // Control interactions between parameters passed in by user and calls to FullStackService
 public class EmployeeController {
@@ -47,11 +48,53 @@ public class EmployeeController {
 		
 		int employeeId = Integer.parseInt(ctx.formParam("employeeId"));
 		try {
-			ctx.html(employeeService.readEmployee(employeeId).toString());
+			ctx.json(employeeService.readEmployee(employeeId));
 		} catch(Exception e) {
 			log.warn("Exception was thrown " + String.valueOf(e));
 			ctx.html(String.valueOf(e));
 		}
+	}
+	
+	public void readAllEmployees(Context ctx) {
+		
+		log.trace("Entering readAllEmployees in EmployeeController");
+		
+		List<Employee> allEmployees = employeeService.readAllEmployees();
+		
+		ctx.json(allEmployees);
+	}
+	
+	public void readDirectSupervisor(Context ctx) {
+		
+		log.trace("Entering readDirectSupervisor in EmployeeController");
+		
+		int employeeId = Integer.parseInt(ctx.formParam("employeeId"));
+		
+		Employee directSupervisor = employeeService.readDirectSupervisor(employeeId);
+		
+		ctx.json(directSupervisor);
+	}
+	
+	public void readDepartmentHead(Context ctx) {
+		
+		log.trace("Entering readDepartment in EmployeeController");
+		
+		int employeeId = Integer.parseInt(ctx.formParam("employeeId"));
+		
+		Employee departmentHead = employeeService.readDepartmentHead(employeeId);
+		
+		ctx.json(departmentHead);
+	}
+	
+	public void readBenCo(Context ctx) {
+		
+		log.trace("Entering readBenCo in EmployeeController");
+		
+		int employeeId = Integer.parseInt(ctx.formParam("employeeId"));
+		
+		Employee benCo = employeeService.readBenCo(employeeId);
+		
+		ctx.json(benCo);
 	}
 
 	

@@ -16,7 +16,16 @@ public class Request {
 	private int hoursMissed;
 	private String dsApprovalProof;
 	private String dhApprovalProof;
+	private int requestId;
 	
+	public int getRequestId() {
+		return requestId;
+	}
+
+	public void setRequestId(int requestId) {
+		this.requestId = requestId;
+	}
+
 	public Request(int employeeId, int eventId, String justification, String date, boolean dsApproved,
 			boolean dhApproved, boolean benCoApproved, int currentWorker, boolean complete, boolean urgent,
 			String attachment, int hoursMissed, String dsApprovalProof, String dhApprovalProof) {

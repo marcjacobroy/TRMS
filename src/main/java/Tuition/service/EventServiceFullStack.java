@@ -15,9 +15,9 @@ public class EventServiceFullStack implements EventService {
 	EventDao eventDao = new EventDaoPostgres();
 	
 	@Override
-	public void createEvent(Event e) {
+	public Event createEvent(Event e) {
 		log.trace("Calling createEvent in EventServiceFullStack on " + e);
-		eventDao.createEvent(e);
+		return eventDao.createEvent(e);
 
 	}
 

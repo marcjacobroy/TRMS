@@ -1,5 +1,7 @@
 package Tuition.service;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 
 import Tuition.dao.RequestDao;
@@ -38,6 +40,31 @@ public class RequestServiceFullStack implements RequestService {
 		log.trace("Calling deleteRequest in RequestServiceFullStack on " + requestId);
 		requestDao.deleteRequest(requestId);
 
+	}
+
+	@Override
+	public List<Request> readRequestsByEmployee(int employeeId) {
+		
+		log.trace("Calling readRequestsByEmployee in RequestServiceFullStack on " + employeeId);
+		return requestDao.readRequestsByEmployee(employeeId);
+	}
+
+	@Override
+	public List<Request> readRequestsByDirectSupervisor(int employeeId) {
+		log.trace("Calling readRequestsByDirectSupervisor in RequestServiceFullStack on " + employeeId);
+		return requestDao.readRequestsByDirectSupervisor(employeeId);
+	}
+
+	@Override
+	public List<Request> readRequestsByDepartmentHead(int employeeId) {
+		log.trace("Calling readRequestsByDepartmentHead in RequestServiceFullStack on " + employeeId);
+		return requestDao.readRequestsByDepartmentHead(employeeId);
+	}
+
+	@Override
+	public List<Request> readRequestsByBenCo(int employeeId) {
+		log.trace("Calling readRequestsByBenCo in RequestServiceFullStack on " + employeeId);
+		return requestDao.readRequestsByBenCo(employeeId);
 	}
 
 }

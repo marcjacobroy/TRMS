@@ -5,6 +5,8 @@ import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -136,6 +138,142 @@ public class EmployeeDaoPostgres implements EmployeeDao {
 			throw new IllegalArgumentException("Employee with id " + employeeId + " does not exist");
 		}
 
+	}
+
+	@Override
+	public List<Employee> readAllEmployees() {
+		
+		log.debug("Entering readAllEmployees in EmployeeDaoPostgres");
+		
+		String sql = "select * from employee";
+		
+		List<Employee> employeeList = new ArrayList<>();
+		
+		try (Connection conn = connUtil.createConnection()) {
+			stmt = conn.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				employeeList.add(makeEmployee(rs));
+			}
+			return employeeList;
+		} catch (SQLException e) {
+			log.warn("Exception thrown " + String.valueOf(e));
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public Employee readDirectSupervisor(int employeeId) {
+		
+		log.debug("Calling readDirectSupervisor in EmployeeDaoPostgres on " + employeeId);
+		
+		String sql = "select e2.* from employee e1, employee e2 where e1.employee_id = ? and e1.reports_to = e2.employee_id";
+			
+		try (Connection conn = connUtil.createConnection()) {
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, employeeId);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				String firstName = rs.getString("first_name");
+				String lastName = rs.getString("last_name");
+				String email = rs.getString("email");
+				int type = rs.getInt("type");
+				int reportsTo = rs.getInt("reports_to");
+				int awardAmount = rs.getInt("award_amount");
+				int pendingAmount = rs.getInt("pending_amount");
+				int department = rs.getInt("department");
+				int benCo = rs.getInt("ben_co");
+				return new Employee(type, reportsTo, firstName, lastName, email, awardAmount, pendingAmount, department, benCo);
+			} else {
+				log.warn("Called on non existant employee");
+				throw new IllegalArgumentException("Employee with id " + employeeId + " does not exist");
+			}
+		} catch (SQLException exc) {
+			log.warn("Threw exception" + String.valueOf(exc));
+			exc.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public Employee readDepartmentHead(int employeeId) {
+		
+		log.debug("Calling readDepartmentHead in EmployeeDaoPostgres on " + employeeId);
+		
+		String sql = "select e2.* from employee e1, employee e2 where e1.employee_id = ? and e1.department = e2.department and e2.type = 2";
+			
+		try (Connection conn = connUtil.createConnection()) {
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, employeeId);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				String firstName = rs.getString("first_name");
+				String lastName = rs.getString("last_name");
+				String email = rs.getString("email");
+				int type = rs.getInt("type");
+				int reportsTo = rs.getInt("reports_to");
+				int awardAmount = rs.getInt("award_amount");
+				int pendingAmount = rs.getInt("pending_amount");
+				int department = rs.getInt("department");
+				int benCo = rs.getInt("ben_co");
+				return new Employee(type, reportsTo, firstName, lastName, email, awardAmount, pendingAmount, department, benCo);
+			} else {
+				log.warn("Called on non existant employee");
+				throw new IllegalArgumentException("Employee with id " + employeeId + " does not exist");
+			}
+		} catch (SQLException exc) {
+			log.warn("Threw exception" + String.valueOf(exc));
+			exc.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public Employee readBenCo(int employeeId) {
+		
+		log.debug("Calling readBenCo in EmployeeDaoPostgres on " + employeeId);
+		
+		String sql = "select e2.* from employee e1, employee e2 where e1.employee_id = ? and e1.ben_co = e2.employee_id";
+			
+		try (Connection conn = connUtil.createConnection()) {
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, employeeId);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				String firstName = rs.getString("first_name");
+				String lastName = rs.getString("last_name");
+				String email = rs.getString("email");
+				int type = rs.getInt("type");
+				int reportsTo = rs.getInt("reports_to");
+				int awardAmount = rs.getInt("award_amount");
+				int pendingAmount = rs.getInt("pending_amount");
+				int department = rs.getInt("department");
+				int benCo = rs.getInt("ben_co");
+				return new Employee(type, reportsTo, firstName, lastName, email, awardAmount, pendingAmount, department, benCo);
+			} else {
+				log.warn("Called on non existant employee");
+				throw new IllegalArgumentException("Employee with id " + employeeId + " does not exist");
+			}
+		} catch (SQLException exc) {
+			log.warn("Threw exception" + String.valueOf(exc));
+			exc.printStackTrace();
+			return null;
+		}
+	}
+	
+	public Employee makeEmployee(ResultSet rs) throws SQLException {
+		
+		String firstName = rs.getString("first_name");
+		String lastName = rs.getString("last_name");
+		String email = rs.getString("email");
+		int type = rs.getInt("type");
+		int reportsTo = rs.getInt("reports_to");
+		int awardAmount = rs.getInt("award_amount");
+		int pendingAmount = rs.getInt("pending_amount");
+		int department = rs.getInt("department");
+		int benCo = rs.getInt("ben_co");
+		return new Employee(type, reportsTo, firstName, lastName, email, awardAmount, pendingAmount, department, benCo);
 	}
 
 }

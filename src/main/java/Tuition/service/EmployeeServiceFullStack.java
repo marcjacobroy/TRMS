@@ -2,6 +2,8 @@ package Tuition.service;
 
 import Tuition.pojos.Employee;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 
 import Tuition.dao.EmployeeDao;
@@ -39,6 +41,30 @@ public class EmployeeServiceFullStack implements EmployeeService {
 		log.trace("Calling deleteEmployee in EmployeeServiceFullStack on " + employeeId);
 		employeeDao.deleteEmployee(employeeId);
 
+	}
+
+	@Override
+	public List<Employee> readAllEmployees() {
+		log.trace("Calling readAllEmployees in EmployeeServiceFullStack");
+		return employeeDao.readAllEmployees();
+	}
+
+	@Override
+	public Employee readDirectSupervisor(int employeeId) {
+		log.trace("Calling readDirectSupervisor in EmployeeServiceFullStack on " + employeeId);
+		return employeeDao.readDirectSupervisor(employeeId);
+	}
+
+	@Override
+	public Employee readDepartmentHead(int employeeId) {
+		log.trace("Calling readDepartmentHead in EmployeeServiceFullStack on " + employeeId);
+		return employeeDao.readDepartmentHead(employeeId);
+	}
+
+	@Override
+	public Employee readBenCo(int employeeId) {
+		log.trace("Calling readBenCo in EmployeeServiceFullStack on " + employeeId);
+		return employeeDao.readBenCo(employeeId);
 	}
 
 }

@@ -7,40 +7,49 @@ import java.util.Date;
 
 public class Event {
 	
-	private Date date;
-	private Date time;
+	private String date;
+	private String time;
 	private String location;
 	private String description;
 	private int cost; 
 	private int gradingFormat;
 	private int type;
+	private int eventId;
 	
+	
+	
+	public int getEventId() {
+		return eventId;
+	}
+
+	public void setEventId(int eventId) {
+		this.eventId = eventId;
+	}
+
 	public Event(String date, String time, String location, String description, int cost, int gradingFormat, int type) throws ParseException {
 		super();
-		DateFormat formatDate = new SimpleDateFormat("yyyy-mm-dd");
-		this.date = formatDate.parse(date);
-		DateFormat formatTime = new SimpleDateFormat("H:mm");
-		this.time = formatTime.parse(time);
+		this.date = date;
+		this.time = time; 
 		this.location = location;
 		this.description = description;
-		this.cost = cost;
+		this.cost = cost; 
 		this.gradingFormat = gradingFormat;
 		this.type = type;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
-	public Date getTime() {
+	public String getTime() {
 		return time;
 	}
 
-	public void setTime(Date time) {
+	public void setTime(String time) {
 		this.time = time;
 	}
 

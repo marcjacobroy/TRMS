@@ -1,5 +1,8 @@
 package Tuition.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 
 import Tuition.pojos.Event;
@@ -32,8 +35,9 @@ public class EventController {
 		int type = Integer.parseInt(ctx.formParam("type"));
 		
 		try {
-			eventService.createEvent((new Event(date, time, location, description, cost, gradingFormat, type)));
-			ctx.html("Created event");
+			List<Event> eventList = new ArrayList<>();
+			eventList.add(eventService.createEvent(new Event(date, time, location, description, cost, gradingFormat, type)));
+			ctx.json(eventList);
 		} catch (Exception e) {
 			ctx.html(String.valueOf(e));
 			log.warn("Exception was thrown " + String.valueOf(e));
@@ -46,7 +50,7 @@ public class EventController {
 		
 		int eventId = Integer.parseInt(ctx.formParam("eventId"));
 		try {
-			ctx.html(eventService.readEvent(eventId).toString());
+			ctx.json(eventService.readEvent(eventId));
 		} catch(Exception e) {
 			log.warn("Exception was thrown " + String.valueOf(e));
 			ctx.html(String.valueOf(e));

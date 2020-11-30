@@ -26,7 +26,7 @@ public class EventDaoPostgres implements EventDao {
 	}
 	
 	@Override
-	public void createEvent(Event e) {
+	public Event createEvent(Event e) {
 		
 		log.debug("Entering createGuest in EmployeeDaoPostgres on " + e);
 		
@@ -43,9 +43,23 @@ public class EventDaoPostgres implements EventDao {
 			stmt.setInt(6, e.getGradingFormat());
 			stmt.setInt(7,  e.getType());
 			stmt.executeUpdate();
+			
+			sql = "select * from event where date = ? and time = ? and location =  ? and description = ? and cost = ? and grading_format = ? and type = ?";
+			stmt = connection.prepareStatement(sql);
+			stmt.setString(1, e.getDate().toString());
+			stmt.setString(2, e.getTime().toString());
+			stmt.setString(3, e.getLocation());
+			stmt.setString(4, e.getDescription());
+			stmt.setInt(5, e.getCost());
+			stmt.setInt(6, e.getGradingFormat());
+			stmt.setInt(7,  e.getType());
+			ResultSet rs = stmt.executeQuery();
+			rs.next();
+			return makeEvent(rs);
 		} catch (SQLException exc) {
 			log.warn("Exception thrown " + String.valueOf(exc));
 			exc.printStackTrace();
+			return null;
 		}
 
 	}
@@ -128,6 +142,26 @@ public class EventDaoPostgres implements EventDao {
 			throw new IllegalArgumentException("Event with id " + eventId + " does not exist");
 		}
 
+	}
+	
+	public Event makeEvent(ResultSet rs) throws SQLException {
+		
+		String date = rs.getString("date");
+		String time = rs.getString("time");
+		String location = rs.getString("location");
+		String description = rs.getString("description");
+		int cost = rs.getInt("cost");
+		int gradingFormat = rs.getInt("grading_format");
+		int type = rs.getInt("type");
+		try {
+			Event e = new Event(date, time, location, description, cost, gradingFormat, type);
+			e.setEventId(rs.getInt("event_id"));
+			return e;
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }
