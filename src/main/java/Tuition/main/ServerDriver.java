@@ -53,7 +53,7 @@ public class ServerDriver {
 		app.delete(EVENT_PATH, ctx -> eventController.deleteEvent(ctx));
 		app.post(EVENT_PATH + "/requestId", ctx -> eventController.readEventOfRequest(ctx));
 		
-		app.get(REQUEST_PATH, ctx -> requestController.readRequest(ctx));
+		app.post(REQUEST_PATH + "/id", ctx -> requestController.readRequest(ctx));
 		app.post(REQUEST_PATH + "/employeeId",  ctx -> requestController.readRequestsByEmployee(ctx));
 		app.post(REQUEST_PATH + "/ds",  ctx -> requestController.readRequestsByDirectSupervisor(ctx));
 		app.post(REQUEST_PATH + "/dh",  ctx -> requestController.readRequestsByDepartmentHead(ctx));

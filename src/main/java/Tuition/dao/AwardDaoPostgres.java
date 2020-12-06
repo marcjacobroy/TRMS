@@ -117,7 +117,7 @@ public class AwardDaoPostgres implements AwardDao {
 		
 		log.debug("Entering readAwardsByEmployeeId in AwardDaoPostgres on " + employeeId);
 		
-		String sql = "select a.* from award a, request r, employee e where a.request_id = r.request_id and r.employee_id = e.employee_id";
+		String sql = "select a.* from award a, request r, employee e where a.request_id = r.request_id and r.employee_id = e.employee_id and e.employee_id = ?";
 		
 		List<Award> awardList = new ArrayList<Award>();
 		
