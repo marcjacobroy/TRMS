@@ -72,6 +72,7 @@ public class RequestController {
 		boolean complete = Boolean.parseBoolean(ctx.formParam("complete"));
 		boolean urgent = Boolean.parseBoolean(ctx.formParam("urgent"));
 		String attachment = ctx.formParam("attachment");
+		System.out.println("hours missed is " + ctx.formParam("hoursMissed"));
 		int hoursMissed = Integer.parseInt(ctx.formParam("hoursMissed"));
 		String dsApprovalProof = ctx.formParam("dsApprovalProof");
 		String dhApprovalProof = ctx.formParam("dhApprovalProof");

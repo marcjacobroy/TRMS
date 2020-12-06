@@ -65,7 +65,9 @@ public class AwardDaoPostgres implements AwardDao {
 				boolean awarded = rs.getBoolean("awarded");
 				boolean exceeding = rs.getBoolean("exceeding");
 				boolean accepted = rs.getBoolean("accepted");
-				return new Award(value, justification, awarded, exceeding, requestId, accepted);
+				Award a = new Award(value, justification, awarded, exceeding, requestId, accepted);new Award(value, justification, awarded, exceeding, requestId, accepted);
+				a.setAwardId(rs.getInt("award_id"));
+				return a;
 			} else {
 				log.warn("Called on non existant award");
 				throw new IllegalArgumentException("Award with id " + awardId + " does not exist");
@@ -130,6 +132,7 @@ public class AwardDaoPostgres implements AwardDao {
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
 				Award a = makeAward(rs);
+				a.setAwardId(rs.getInt("award_id"));
 				awardList.add(a);
 			}
 		} catch (SQLException exc) {

@@ -35,9 +35,10 @@ public class EventController {
 		int type = Integer.parseInt(ctx.formParam("type"));
 		
 		try {
-			List<Event> eventList = new ArrayList<>();
-			eventList.add(eventService.createEvent(new Event(date, time, location, description, cost, gradingFormat, type)));
-			ctx.json(eventList);
+//			List<Event> eventList = new ArrayList<>();
+//			eventList.add(eventService.createEvent(new Event(date, time, location, description, cost, gradingFormat, type)));
+//			ctx.json(eventList);
+			ctx.json(eventService.createEvent(new Event(date, time, location, description, cost, gradingFormat, type)));
 		} catch (Exception e) {
 			ctx.html(String.valueOf(e));
 			log.warn("Exception was thrown " + String.valueOf(e));

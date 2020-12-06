@@ -13,7 +13,20 @@ public class Employee {
 	private int pendingAmount;
 	private int department;
 	private int benCo;
+	private int employeeId;
 	
+	public int getEmployeeId() {
+		return employeeId;
+	}
+
+
+
+	public void setEmployeeId(int employeeId) {
+		this.employeeId = employeeId;
+	}
+
+
+
 	public Employee(int type, int reportsTo, String firstName, String lastName, String email, int awardAmount,
 			int pendingAmount, int department, int benCo) {
 		super();

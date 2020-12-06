@@ -31,14 +31,15 @@ public class MessageDaoPostgres implements MessageDao {
 		
 		log.debug("Entering createMessage in MessageDaoPostgres on " + m);
 		
-		String sql = "insert into message (sender, recipient_id, contents) values(?, ?, ?)"; 
+		String sql = "insert into message (sender, recipient_id, contents, subject) values(?, ?, ?, ?)"; 
 		
 		try {
 			Connection connection = connUtil.createConnection();
 			stmt = connection.prepareStatement(sql);
 			stmt.setString(1, m.getSender());
-			stmt.setInt(2,  m.getRecipientId());;
+			stmt.setString(2,  m.getRecipientId());;
 			stmt.setString(3,  m.getContents());
+			stmt.setString(4,  m.getSubject());
 			stmt.executeUpdate();
 		} catch (SQLException exc) {
 			log.warn("Exception thrown " + String.valueOf(exc));
@@ -47,7 +48,7 @@ public class MessageDaoPostgres implements MessageDao {
 	}
 
 	@Override
-	public List<Message> readMessagesByEmployee(int employeeId) {
+	public List<Message> readMessagesByEmployee(String employeeId) {
 		
 		log.debug("Entering readMessage in MessageDaoPostgres on " + employeeId);
 		
@@ -56,7 +57,7 @@ public class MessageDaoPostgres implements MessageDao {
 		try {
 			Connection connection = connUtil.createConnection();
 			stmt = connection.prepareStatement(sql);
-			stmt.setInt(1, employeeId);
+			stmt.setString(1, employeeId);
 			ResultSet rs = stmt.executeQuery();
 			List<Message> messageList = new ArrayList<>();
 			while(rs.next()) {
@@ -75,9 +76,10 @@ public class MessageDaoPostgres implements MessageDao {
 	public Message makeMessage(ResultSet rs) throws SQLException {
 		
 		String sender = rs.getString("sender");
-		int recipientId = rs.getInt("recipient_id");
+		String recipientId = rs.getString("recipient_id");
 		String contents = rs.getString("contents");
-		Message m = new Message(contents, sender, recipientId);
+		String subject = rs.getString("subject");
+		Message m = new Message(contents, sender, recipientId, subject);
 		return m;
 	}
 

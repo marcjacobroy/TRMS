@@ -17,7 +17,7 @@ public class MessageServiceFullStack implements MessageService {
 	}
 
 	@Override
-	public List<Message> readMessagesByEmployee(int employeeId) {
+	public List<Message> readMessagesByEmployee(String employeeId) {
 		return messageDao.readMessagesByEmployee(employeeId);
 	}
 

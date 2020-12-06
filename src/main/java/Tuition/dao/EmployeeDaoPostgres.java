@@ -73,7 +73,9 @@ public class EmployeeDaoPostgres implements EmployeeDao {
 				int pendingAmount = rs.getInt("pending_amount");
 				int department = rs.getInt("department");
 				int benCo = rs.getInt("ben_co");
-				return new Employee(type, reportsTo, firstName, lastName, email, awardAmount, pendingAmount, department, benCo);
+				Employee e = new Employee(type, reportsTo, firstName, lastName, email, awardAmount, pendingAmount, department, benCo);
+				e.setEmployeeId(employeeId);
+				return e;
 			} else {
 				log.warn("Called on non existant employee");
 				throw new IllegalArgumentException("Employee with id " + employeeId + " does not exist");
@@ -184,10 +186,13 @@ public class EmployeeDaoPostgres implements EmployeeDao {
 				int pendingAmount = rs.getInt("pending_amount");
 				int department = rs.getInt("department");
 				int benCo = rs.getInt("ben_co");
-				return new Employee(type, reportsTo, firstName, lastName, email, awardAmount, pendingAmount, department, benCo);
+				int dsId = rs.getInt("employee_id");
+				Employee e = new Employee(type, reportsTo, firstName, lastName, email, awardAmount, pendingAmount, department, benCo);
+				e.setEmployeeId(dsId);
+				return e;
 			} else {
-				log.warn("Called on non existant employee");
-				throw new IllegalArgumentException("Employee with id " + employeeId + " does not exist");
+				log.warn("Called on employee with no direct supervisor");
+				throw new IllegalArgumentException("Employee with id " + employeeId + " has no ds");
 			}
 		} catch (SQLException exc) {
 			log.warn("Threw exception" + String.valueOf(exc));
@@ -217,10 +222,13 @@ public class EmployeeDaoPostgres implements EmployeeDao {
 				int pendingAmount = rs.getInt("pending_amount");
 				int department = rs.getInt("department");
 				int benCo = rs.getInt("ben_co");
-				return new Employee(type, reportsTo, firstName, lastName, email, awardAmount, pendingAmount, department, benCo);
+				int dhId = rs.getInt("employee_id");
+				Employee e = new Employee(type, reportsTo, firstName, lastName, email, awardAmount, pendingAmount, department, benCo);
+				e.setEmployeeId(dhId);
+				return e;
 			} else {
-				log.warn("Called on non existant employee");
-				throw new IllegalArgumentException("Employee with id " + employeeId + " does not exist");
+				log.warn("Called on employee with no dh");
+				throw new IllegalArgumentException("Employee with id " + employeeId + " has no dh");
 			}
 		} catch (SQLException exc) {
 			log.warn("Threw exception" + String.valueOf(exc));
@@ -250,10 +258,13 @@ public class EmployeeDaoPostgres implements EmployeeDao {
 				int pendingAmount = rs.getInt("pending_amount");
 				int department = rs.getInt("department");
 				int benCo = rs.getInt("ben_co");
-				return new Employee(type, reportsTo, firstName, lastName, email, awardAmount, pendingAmount, department, benCo);
+				int bcId = rs.getInt("employee_id");
+				Employee e = new Employee(type, reportsTo, firstName, lastName, email, awardAmount, pendingAmount, department, benCo);
+				e.setEmployeeId(bcId);
+				return e;
 			} else {
-				log.warn("Called on non existant employee");
-				throw new IllegalArgumentException("Employee with id " + employeeId + " does not exist");
+				log.warn("Called on employee with no bh");
+				throw new IllegalArgumentException("Employee with id " + employeeId + " has no bh");
 			}
 		} catch (SQLException exc) {
 			log.warn("Threw exception" + String.valueOf(exc));

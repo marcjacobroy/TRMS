@@ -78,6 +78,7 @@ public class EmployeeController {
 	public void readDepartmentHead(Context ctx) {
 		
 		log.trace("Entering readDepartment in EmployeeController");
+		System.out.println("readDepartmentHead");
 		
 		int employeeId = Integer.parseInt(ctx.formParam("employeeId"));
 		

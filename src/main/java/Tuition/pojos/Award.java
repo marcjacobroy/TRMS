@@ -8,7 +8,14 @@ public class Award {
 	private boolean exceeding;
 	private int requestId;
 	private boolean accepted;
+	private int awardId;
 	
+	public int getAwardId() {
+		return awardId;
+	}
+	public void setAwardId(int awardId) {
+		this.awardId = awardId;
+	}
 	public int getValue() {
 		return value;
 	}

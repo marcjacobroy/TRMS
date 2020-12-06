@@ -181,7 +181,9 @@ public class RequestDaoPostgres implements RequestDao {
 			stmt.setInt(1, employeeId);
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
-				requestList.add(makeRequest(rs));
+				Request r = makeRequest(rs);
+				r.setRequestId(rs.getInt("request_id"));
+				requestList.add(r);
 			}
 			return requestList;
 		} catch (SQLException exc) {

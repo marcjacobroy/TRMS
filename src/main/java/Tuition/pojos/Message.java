@@ -4,8 +4,9 @@ public class Message {
 	
 	private String contents;
 	String sender;
-	private int recipientId;
+	private String recipientId;
 	private int messageId;
+	private String subject;
 	
 	
 	public String getSender() {
@@ -27,18 +28,26 @@ public class Message {
 		this.contents = contents;
 	}
 	
-	public int getRecipientId() {
+	public String getRecipientId() {
 		return recipientId;
 	}
-	public void setRecipientId(int recipientId) {
+	public void setRecipientId(String recipientId) {
 		this.recipientId = recipientId;
 	}
 	
-	public Message(String contents, String sender, int recipientId) {
+	
+	public String getSubject() {
+		return subject;
+	}
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+	public Message(String contents, String sender, String recipientId, String subject) {
 		super();
 		this.contents = contents;
 		this.sender = sender;
 		this.recipientId = recipientId;
+		this.subject = subject;
 	}
 	@Override
 	public String toString() {

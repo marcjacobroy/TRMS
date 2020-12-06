@@ -178,7 +178,7 @@ public class EventDaoPostgres implements EventDao {
 			Event e = new Event(date, time, location, description, cost, gradingFormat, type);
 			e.setEventId(rs.getInt("event_id"));
 			return e;
-		} catch (ParseException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;

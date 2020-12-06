@@ -8,6 +8,6 @@ public interface MessageDao {
 	
 	public void createMessage(Message m);
 	
-	public List<Message> readMessagesByEmployee(int messageId);
+	public List<Message> readMessagesByEmployee(String employeeId);
 
 }

@@ -16,15 +16,16 @@ public class MessageController {
 	public void createMessage(Context ctx) {
 		
 		String sender = ctx.formParam("sender");
-		int recipientId = Integer.parseInt(ctx.formParam("recipientId"));
+		String recipientId = ctx.formParam("recipientId");
 		String contents = ctx.formParam("contents");
+		String subject = ctx.formParam("subject");
 	
-		messageService.createMessage(new Message(contents, sender, recipientId));
+		messageService.createMessage(new Message(contents, sender, recipientId, subject));
 	}
 	
 	public void readMessagesByEmployee(Context ctx) {
 		
-		int employeeId = Integer.parseInt(ctx.formParam(("employeeId")));
+		String employeeId = ctx.formParam(("employeeId"));
 		
 		List<Message> messageList = messageService.readMessagesByEmployee(employeeId);
 		ctx.json(messageList);
