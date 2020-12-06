@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import org.apache.log4j.Logger;
 
 import Tuition.pojos.Award;
-import Tuition.pojos.Employee;
 import Tuition.util.ConnectionUtil;
 
 public class AwardDaoPostgres implements AwardDao {

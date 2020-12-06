@@ -5,6 +5,7 @@ import io.javalin.Javalin;
 import org.apache.log4j.Logger;
 
 import Tuition.controller.AuthController;
+import Tuition.controller.AwardController;
 import Tuition.controller.EmployeeController;
 import Tuition.controller.RequestController;
 import Tuition.controller.EventController;
@@ -22,12 +23,14 @@ public class ServerDriver {
 	private static RequestController requestController = new RequestController();
 	private static AuthController authController = new AuthController();
 	private static MessageController messageController = new MessageController();
+	private static AwardController awardController = new AwardController();
 	
 	private static final String EMPLOYEE_PATH = "/employee";
 	private static final String EVENT_PATH = "/event";
 	private static final String REQUEST_PATH = "/request";
 	private static final String LOGIN_PATH = "/login";
 	private static final String MESSAGE_PATH = "/message";
+	private static final String AWARD_PATH = "/award";
 	
 	
 	
@@ -63,6 +66,11 @@ public class ServerDriver {
 		
 		app.post(MESSAGE_PATH + "s/id", ctx -> messageController.readMessagesByEmployee(ctx));
 		app.post(MESSAGE_PATH, ctx -> messageController.createMessage(ctx));
+		
+		app.post(AWARD_PATH, ctx -> awardController.createAward(ctx));
+		app.post(AWARD_PATH + "/delete", ctx -> awardController.deleteAward(ctx));
+		app.post(AWARD_PATH + "/update", ctx -> awardController.updateAward(ctx));
+		app.post(AWARD_PATH + "/id", ctx -> awardController.readAward(ctx));
 	}
 	
 }
