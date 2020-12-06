@@ -14,4 +14,6 @@ public interface EventService {
 	
 	public void deleteEvent(int eventId);
 
+	public Event readEventOfRequest(int requestId);
+
 }

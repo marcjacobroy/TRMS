@@ -51,6 +51,7 @@ public class ServerDriver {
 		app.post(EVENT_PATH, ctx -> eventController.createEvent(ctx));
 		app.patch(EVENT_PATH, ctx -> eventController.updateEvent(ctx));
 		app.delete(EVENT_PATH, ctx -> eventController.deleteEvent(ctx));
+		app.post(EVENT_PATH + "/requestId", ctx -> eventController.readEventOfRequest(ctx));
 		
 		app.get(REQUEST_PATH, ctx -> requestController.readRequest(ctx));
 		app.post(REQUEST_PATH + "/employeeId",  ctx -> requestController.readRequestsByEmployee(ctx));

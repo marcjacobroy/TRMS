@@ -144,6 +144,27 @@ public class EventDaoPostgres implements EventDao {
 
 	}
 	
+	@Override
+	public Event readEventOfRequest(int requestId) {
+		
+		log.debug("Calling readEventOfRequest in EventDaoPostgres on " + requestId);
+		
+		String sql = "select e.* from event e, request r where e.event_id = r.event_id and r.request_id = ?";
+		
+		try (Connection conn = connUtil.createConnection()) {
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, requestId);
+			ResultSet rs = stmt.executeQuery();
+			rs.next();
+			return makeEvent(rs);
+		} catch (SQLException exc) {
+			log.warn("Exception thrown " + String.valueOf(exc));
+			exc.printStackTrace();
+			return null;
+		}
+		
+	}
+	
 	public Event makeEvent(ResultSet rs) throws SQLException {
 		
 		String date = rs.getString("date");
@@ -163,5 +184,7 @@ public class EventDaoPostgres implements EventDao {
 			return null;
 		}
 	}
+
+	
 
 }

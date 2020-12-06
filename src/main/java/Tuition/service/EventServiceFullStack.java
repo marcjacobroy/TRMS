@@ -40,4 +40,11 @@ public class EventServiceFullStack implements EventService {
 
 	}
 
+	@Override
+	public Event readEventOfRequest(int requestId) {
+		log.trace("Calling readEventOfRequest in EventServiceFulStack");
+		return eventDao.readEventOfRequest(requestId);
+		
+	}
+
 }

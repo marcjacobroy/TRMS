@@ -103,4 +103,18 @@ public class EventController {
 			ctx.html(String.valueOf(e));
 		}
 	}
+	
+	public void readEventOfRequest(Context ctx) {
+		
+		log.trace("Entering readEventOfRequest in EventController");
+		
+		int requestId = Integer.valueOf(ctx.formParam(("requestId")));
+		
+		try {
+			ctx.json(eventService.readEventOfRequest(requestId));
+		} catch (Exception e) {
+			log.warn("Exception was thrown " + String.valueOf(e));
+			ctx.html(String.valueOf(e));
+		}
+	}
 }
