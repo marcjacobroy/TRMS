@@ -1,5 +1,7 @@
 package Tuition.dao;
 
+import java.util.List;
+
 import Tuition.pojos.Award;
 
 public interface AwardDao {
@@ -11,5 +13,7 @@ public interface AwardDao {
 	public void updateAward(int awardId, Award award);
 	
 	public void deleteAward(int awardId);
+
+	public List<Award> readAwardsByEmployeeId(int employeeId);
 
 }

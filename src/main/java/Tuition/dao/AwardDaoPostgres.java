@@ -4,10 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 
 import Tuition.pojos.Award;
+import Tuition.pojos.Request;
 import Tuition.util.ConnectionUtil;
 
 public class AwardDaoPostgres implements AwardDao {
@@ -107,5 +110,40 @@ public class AwardDaoPostgres implements AwardDao {
 		} catch (SQLException exc) {
 			log.warn("Threw exception" + String.valueOf(exc));
 		}
+	}
+
+	@Override
+	public List<Award> readAwardsByEmployeeId(int employeeId) {
+		
+		log.debug("Entering readAwardsByEmployeeId in AwardDaoPostgres on " + employeeId);
+		
+		String sql = "select a.* from award a, request r, employee e where a.request_id = r.request_id and r.employee_id = e.employee_id";
+		
+		List<Award> awardList = new ArrayList<Award>();
+		
+		try (Connection connection = connUtil.createConnection()){
+			stmt = connection.prepareStatement(sql);
+			stmt.setInt(1, employeeId);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				Award a = makeAward(rs);
+				awardList.add(a);
+			}
+		} catch (SQLException exc) {
+			log.warn("Exception thrown " + String.valueOf(exc));
+			exc.printStackTrace();
+		}
+		
+		return awardList;
+	}
+	
+public Award makeAward(ResultSet rs) throws SQLException{
+		
+		int value = rs.getInt("value");
+		String justification = rs.getString("justification");
+		boolean awarded = rs.getBoolean("awarded");
+		boolean exceeding = rs.getBoolean("exceeding");
+		int requestId = rs.getInt("request_id");
+		return new Award(value, justification, awarded, exceeding, requestId);
 	}
 }

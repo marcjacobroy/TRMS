@@ -80,5 +80,19 @@ public class AwardController {
 		}
 	}
 	
+	public void readAwardsByEmployeeId(Context ctx) {
+		
+		log.trace("Entering readAwardsByEmployeeId in AwardController");
+		
+		int employeeId = Integer.parseInt(ctx.formParam("employeeId"));
+		
+		try {
+			ctx.json(awardService.readAwardsByEmployeeId(employeeId));
+		} catch(Exception e) {
+			log.warn("Exception was thrown " + String.valueOf(e));
+			ctx.html(String.valueOf(e));
+		}
+	}
+	
 }
 

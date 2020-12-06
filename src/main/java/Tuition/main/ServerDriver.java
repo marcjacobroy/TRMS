@@ -71,6 +71,7 @@ public class ServerDriver {
 		app.post(AWARD_PATH + "/delete", ctx -> awardController.deleteAward(ctx));
 		app.post(AWARD_PATH + "/update", ctx -> awardController.updateAward(ctx));
 		app.post(AWARD_PATH + "/id", ctx -> awardController.readAward(ctx));
+		app.post(AWARD_PATH + "/employeeId", ctx -> awardController.readAwardsByEmployeeId(ctx));
 	}
 	
 }

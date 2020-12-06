@@ -1,5 +1,7 @@
 package Tuition.service;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 
 import Tuition.dao.AwardDao;
@@ -37,6 +39,12 @@ public class AwardServiceFullStack implements AwardService {
 		log.trace("Calling deleteAward in AwardServiceFullStack on " + awardId);
 		awardDao.deleteAward(awardId);
 
+	}
+
+	@Override
+	public List<Award> readAwardsByEmployeeId(int employeeId) {
+		log.trace("Calling readAwardsByEmployeeId in AwardServiceFulStack on " + employeeId);
+		return awardDao.readAwardsByEmployeeId(employeeId);
 	}
 
 }
