@@ -7,6 +7,7 @@ public class Award {
 	private boolean awarded;
 	private boolean exceeding;
 	private int requestId;
+	private boolean accepted;
 	
 	public int getValue() {
 		return value;
@@ -38,13 +39,21 @@ public class Award {
 	public void setRequestId(int requestId) {
 		this.requestId = requestId;
 	}
-	public Award(int value, String justification, boolean awarded, boolean exceeding, int requestId) {
+	
+	public boolean isAccepted() {
+		return accepted;
+	}
+	public void setAccepted(boolean accepted) {
+		this.accepted = accepted;
+	}
+	public Award(int value, String justification, boolean awarded, boolean exceeding, int requestId, boolean accepted) {
 		super();
 		this.value = value;
 		this.justification = justification;
 		this.awarded = awarded;
 		this.exceeding = exceeding;
 		this.requestId = requestId;
+		this.accepted = accepted;
 	}
 	
 

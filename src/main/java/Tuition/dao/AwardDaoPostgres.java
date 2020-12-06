@@ -29,7 +29,7 @@ public class AwardDaoPostgres implements AwardDao {
 	public void createAward(Award award) {
 		log.debug("Entering createAward in AwardDaoPostgres on " + award);
 		
-		String sql = "insert into award (request_id, value, justification, awarded, exceeding) values(?, ?, ?, ?, ?)"; 
+		String sql = "insert into award (request_id, value, justification, awarded, exceeding, accepted) values(?, ?, ?, ?, ?, ?)"; 
 		
 		try {
 			Connection connection = connUtil.createConnection();
@@ -39,6 +39,7 @@ public class AwardDaoPostgres implements AwardDao {
 			stmt.setString(3, award.getJustification());
 			stmt.setBoolean(4,  award.isAwarded());
 			stmt.setBoolean(5,  award.isExceeding());
+			stmt.setBoolean(6, award.isAccepted());
 			stmt.executeUpdate();
 		} catch (SQLException exc) {
 			log.warn("Exception thrown " + String.valueOf(exc));
@@ -63,7 +64,8 @@ public class AwardDaoPostgres implements AwardDao {
 				String justification = rs.getString("justification");
 				boolean awarded = rs.getBoolean("awarded");
 				boolean exceeding = rs.getBoolean("exceeding");
-				return new Award(value, justification, awarded, exceeding, requestId);
+				boolean accepted = rs.getBoolean("accepted");
+				return new Award(value, justification, awarded, exceeding, requestId, accepted);
 			} else {
 				log.warn("Called on non existant award");
 				throw new IllegalArgumentException("Award with id " + awardId + " does not exist");
@@ -79,7 +81,7 @@ public class AwardDaoPostgres implements AwardDao {
 	public void updateAward(int awardId, Award award) {
 		log.debug("Entering updateAward in AwardDaoPostgres on " + award);
 		
-		String sql = "update award set request_id = ?, value = ?, justification = ?, awarded = ?, exceeding = ? where award_id = ?";
+		String sql = "update award set request_id = ?, value = ?, justification = ?, awarded = ?, exceeding = ?, accepted = ? where award_id = ?";
 		
 		try {
 			Connection connection = connUtil.createConnection();
@@ -89,7 +91,8 @@ public class AwardDaoPostgres implements AwardDao {
 			stmt.setString(3, award.getJustification());
 			stmt.setBoolean(4,  award.isAwarded());
 			stmt.setBoolean(5,  award.isExceeding());
-			stmt.setInt(6,  awardId);
+			stmt.setBoolean(6,  award.isAccepted());
+			stmt.setInt(7,  awardId);
 			stmt.executeUpdate();
 		} catch (SQLException exc) {
 			log.warn("Exception thrown " + String.valueOf(exc));
@@ -144,6 +147,7 @@ public Award makeAward(ResultSet rs) throws SQLException{
 		boolean awarded = rs.getBoolean("awarded");
 		boolean exceeding = rs.getBoolean("exceeding");
 		int requestId = rs.getInt("request_id");
-		return new Award(value, justification, awarded, exceeding, requestId);
+		boolean accepted = rs.getBoolean("accepted");
+		return new Award(value, justification, awarded, exceeding, requestId, accepted);
 	}
 }

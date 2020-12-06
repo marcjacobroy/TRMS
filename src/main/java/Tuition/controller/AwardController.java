@@ -24,7 +24,7 @@ public class AwardController {
 		int requestId = Integer.parseInt(ctx.formParam("requestId"));
 		
 		try {
-			awardService.createAward(new Award(value, justification, awarded, exceeding, requestId));
+			awardService.createAward(new Award(value, justification, awarded, exceeding, requestId, false));
 		} catch (Exception e) {
 			ctx.html(String.valueOf(e));
 			log.warn("Exception was thrown " + String.valueOf(e));
@@ -56,9 +56,10 @@ public class AwardController {
 		boolean exceeding = Boolean.parseBoolean(ctx.formParam("exceeding"));
 		int requestId = Integer.parseInt(ctx.formParam("requestId"));
 		int awardId = Integer.parseInt(ctx.formParam("awardId"));
+		boolean accepted = Boolean.parseBoolean(ctx.formParam("accepted"));
 		
 		try {
-			awardService.updateAward(awardId, new Award(value, justification, awarded, exceeding, requestId));
+			awardService.updateAward(awardId, new Award(value, justification, awarded, exceeding, requestId, accepted));
 		} catch (Exception e) {
 			ctx.html(String.valueOf(e));
 			log.warn("Exception was thrown " + String.valueOf(e));
