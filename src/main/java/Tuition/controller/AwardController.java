@@ -16,6 +16,7 @@ public class AwardController {
 	public void createAward(Context ctx) {
 		
 		log.trace("Entering createAward in AwardController");
+		System.out.println("createAwardController");
 		
 		int value = Integer.parseInt(ctx.formParam("value"));
 		String justification = ctx.formParam("justification");
@@ -47,6 +48,8 @@ public class AwardController {
 	}
 
 	public void updateAward(Context ctx) {
+		
+		System.out.println("updateAwardController");
 		
 		log.trace("Entering updateAward in AwardController");
 		
