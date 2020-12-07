@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <title>Request Form</title>
+        <link rel="stylesheet" href="index.css">
+    </head>
+    <body>
+        <div class="make-page">
+            <div class="form">
+                <form class="make-request-form" id="form-id" enctype="multipart/form-data">
+                    <input type="date" placeholder="event date" id="dateInput"/>
+                    <input type="time" placeholder="event time" id="timeInput"/>
+                    <input type="text" placeholder="location" id="locationInput"/>
+                    <input type="text" placeholder="description" id="descriptionInput"/>
+                    <input type="number" placeholder="cost" id="costInput"/>
+                    <label for="gradingFormatInput" style="color:white;">Choose a grading format:</label>
+                    <select name = "gradingFormatInput" id="gradingFormatInput">
+                        <option value="1">A-F</option>
+                        <option value="2">1-6</option>
+                        <option value="3">Presentation</option>
+                    </select>
+                    <label for="typeInput" style="color:white;">Choose an event type:</label>
+                    <select name = typeInput id="typeInput">
+                        <option value="1">University Course</option>
+                        <option value="2">Seminar</option>
+                        <option value="3">Certification Preparation Class</option>
+                        <option value="4">Certification</option>
+                        <option value="5">Technical Training</option>
+                        <option value="6">Other</option>
+                    </select>
+                    <input type="text" placeholder="work related justification" id="justificationInput"/>
+                    <input type="file" placeholder="attachment" id="attachmentInput" name="files" />
+                    <input type="number" placeholder="work hour missed" id="hoursInput"/>
+                    <input type="checkbox" id="dsApprovalInput" placeholder="test"/>
+                    <label for="dsApprovalInput" style="color:white;">Check if you already have Direct Supervisor approval</label>
+                    <input type="checkbox" id="dhApprovalInput"/>
+                    <label for="dhApprovalInput" style="color:white;">Check if you already have Department Head approval</label>
+                    <button type="submit" id="createRequestButton">Submit</button>
+                </form>
+            </div>
+        </div>
+        <script src="make-request.js" type="text/javascript"></script>
+    </body>
+</html>

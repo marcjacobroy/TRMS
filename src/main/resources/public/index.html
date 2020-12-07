@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <title>Login and Registration Form</title>
+        <link rel="stylesheet" href="index.css">
+
+    </head>
+    <body>
+        <div class="login_page">
+            <div class="form">
+                <form class="register-form">
+                    <input type="text" placeholder="first name" id="firstNameInput"/>
+                    <input type="text" placeholder="last name" id="lastNameInput"/>
+                    <input type="password" placeholder="password" id="passwordInput"/>
+                    <input type="email" placeholder="email" id="emailInput"/>
+                    <input type="number" placeholder="department" id="departmentInput"/>
+                    <input type="number" placeholder="What is your direct supervisor's id?" id="reportsToInput"/>
+                    <input type="number" placeholder="What is your benCo's id?" id="benCoInput"/>
+                    <button type="submit" id="createEmployeeButton">Create</button>
+                    <p class="message">Already Registered? <a href="#">Login</a>
+                    </p>
+                </form>
+                <form class="login-form">
+                <input type="text" id ="idLogin" placeholder="Id"/>
+                <input type="password" placeholder="password"/>
+                <button type="submit" id="loginButton">Login</button>
+                <p class="message">Not Registered? <a href="#">Register</a></p>
+                </form>
+            </div>
+        </div>
+        <script src="index.js" type="text/javascript"></script>
+    </body>
+</html>
