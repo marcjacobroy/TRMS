@@ -288,4 +288,38 @@ public class EmployeeDaoPostgres implements EmployeeDao {
 		return new Employee(type, reportsTo, firstName, lastName, email, awardAmount, pendingAmount, department, benCo);
 	}
 
+	@Override
+	public Employee readEmployeeOfRequest(int requestId) {
+		
+		String sql = "select e.* from employee e, request r where e.employee_id = r.employee_id and r.request_id = ?";
+		
+		try (Connection conn = connUtil.createConnection()) {
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, requestId);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				String firstName = rs.getString("first_name");
+				String lastName = rs.getString("last_name");
+				String email = rs.getString("email");
+				int type = rs.getInt("type");
+				int reportsTo = rs.getInt("reports_to");
+				int awardAmount = rs.getInt("award_amount");
+				int pendingAmount = rs.getInt("pending_amount");
+				int department = rs.getInt("department");
+				int benCo = rs.getInt("ben_co");
+				int employeeId = rs.getInt("employee_id");
+				Employee e = new Employee(type, reportsTo, firstName, lastName, email, awardAmount, pendingAmount, department, benCo);
+				e.setEmployeeId(employeeId);
+				return e;
+			} else {
+				log.warn("Called on non existant employee");
+				throw new IllegalArgumentException("Employee of request with id " + requestId + " does not exist");
+			}
+		} catch (SQLException exc) {
+			log.warn("Threw exception" + String.valueOf(exc));
+			exc.printStackTrace();
+			return null;
+		}
+	}
+
 }

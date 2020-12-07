@@ -143,7 +143,7 @@ public class AwardDaoPostgres implements AwardDao {
 		return awardList;
 	}
 	
-public Award makeAward(ResultSet rs) throws SQLException{
+	public Award makeAward(ResultSet rs) throws SQLException{
 		
 		int value = rs.getInt("value");
 		String justification = rs.getString("justification");
@@ -152,5 +152,34 @@ public Award makeAward(ResultSet rs) throws SQLException{
 		int requestId = rs.getInt("request_id");
 		boolean accepted = rs.getBoolean("accepted");
 		return new Award(value, justification, awarded, exceeding, requestId, accepted);
+	}
+
+	@Override
+	public Award readAwardOfRequest(int rId) {
+		String sql = "select a.* from award a, request r where a.request_id = r.request_id and r.request_id = ?";
+		
+		try (Connection conn = connUtil.createConnection()) {
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, rId);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				int requestId = rs.getInt("request_id");
+				int value = rs.getInt("value");
+				String justification = rs.getString("justification");
+				boolean awarded = rs.getBoolean("awarded");
+				boolean exceeding = rs.getBoolean("exceeding");
+				boolean accepted = rs.getBoolean("accepted");
+				Award a = new Award(value, justification, awarded, exceeding, requestId, accepted);new Award(value, justification, awarded, exceeding, requestId, accepted);
+				a.setAwardId(rs.getInt("award_id"));
+				return a;
+			} else {
+				log.warn("Called on non existant award");
+				throw new IllegalArgumentException("Award with requestid " + rId + " does not exist");
+			}
+		} catch (SQLException exc) {
+			log.warn("Threw exception" + String.valueOf(exc));
+			exc.printStackTrace();
+			return null;
+		}
 	}
 }

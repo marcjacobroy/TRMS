@@ -34,6 +34,7 @@ public class RequestController {
 		String dsApprovalProof = ctx.formParam("dsApprovalProof");
 		String dhApprovalProof = ctx.formParam("dhApprovalProof");
 
+		System.out.println(attachment);
 		try {
 			requestService.createRequest(new Request(employeeId, eventId, justification, date, dsApproved, dhApproved, benCoApproved, currentWorker, complete, urgent, attachment, hoursMissed, dsApprovalProof, dhApprovalProof));
 			ctx.html("Created event");

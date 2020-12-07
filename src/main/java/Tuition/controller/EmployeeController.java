@@ -55,6 +55,16 @@ public class EmployeeController {
 		}
 	}
 	
+	public void readEmployeeOfRequest(Context ctx) {
+		int requestId = Integer.parseInt(ctx.formParam("requestId"));
+		try {
+			ctx.json(employeeService.readEmployeeOfRequest(requestId));
+		} catch(Exception e) {
+			log.warn("Exception was thrown " + String.valueOf(e));
+			ctx.html(String.valueOf(e));
+		}
+	}
+	
 	public void readAllEmployees(Context ctx) {
 		
 		log.trace("Entering readAllEmployees in EmployeeController");

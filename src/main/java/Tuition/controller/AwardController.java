@@ -98,5 +98,17 @@ public class AwardController {
 		}
 	}
 	
+	public void readAwardOfRequest(Context ctx) {
+		int requestId = Integer.parseInt(ctx.formParam("requestId"));
+		
+		try {
+			ctx.json(awardService.readAwardOfRequest(requestId));
+		} catch(Exception e) {
+			log.warn("Exception was thrown " + String.valueOf(e));
+			ctx.html(String.valueOf(e));
+		}
+		
+	}
+	
 }
 

@@ -9,6 +9,7 @@ import Tuition.controller.AwardController;
 import Tuition.controller.EmployeeController;
 import Tuition.controller.RequestController;
 import Tuition.controller.EventController;
+import Tuition.controller.GradeController;
 import Tuition.controller.MessageController;
 
 
@@ -24,6 +25,7 @@ public class ServerDriver {
 	private static AuthController authController = new AuthController();
 	private static MessageController messageController = new MessageController();
 	private static AwardController awardController = new AwardController();
+	private static GradeController gradeController = new GradeController();
 	
 	private static final String EMPLOYEE_PATH = "/employee";
 	private static final String EVENT_PATH = "/event";
@@ -31,6 +33,7 @@ public class ServerDriver {
 	private static final String LOGIN_PATH = "/login";
 	private static final String MESSAGE_PATH = "/message";
 	private static final String AWARD_PATH = "/award";
+	private static final String GRADE_PATH = "/grade";
 	
 	
 	
@@ -46,6 +49,7 @@ public class ServerDriver {
 		app.post(EMPLOYEE_PATH, ctx -> employeeController.createEmployee(ctx));
 		app.post(EMPLOYEE_PATH + "/update", ctx -> employeeController.updateEmployee(ctx));
 		app.delete(EMPLOYEE_PATH, ctx -> employeeController.deleteEmployee(ctx));
+		app.post(EMPLOYEE_PATH + "/requestId", ctx -> employeeController.readEmployeeOfRequest(ctx));
 		
 		app.post(EVENT_PATH + "/id", ctx -> eventController.readEvent(ctx));
 		app.post(EVENT_PATH, ctx -> eventController.createEvent(ctx));
@@ -73,6 +77,16 @@ public class ServerDriver {
 		app.post(AWARD_PATH + "/update", ctx -> awardController.updateAward(ctx));
 		app.post(AWARD_PATH + "/id", ctx -> awardController.readAward(ctx));
 		app.post(AWARD_PATH + "/employeeId", ctx -> awardController.readAwardsByEmployeeId(ctx));
+		app.post(AWARD_PATH + "/requestId", ctx -> awardController.readAwardOfRequest(ctx));
+		
+		app.post(GRADE_PATH + "/create", ctx -> gradeController.createGrade(ctx));
+		app.post(GRADE_PATH + "/read", ctx -> gradeController.readGrade(ctx));
+		app.post(GRADE_PATH + "/update", ctx -> gradeController.updateGrade(ctx));
+		app.post(GRADE_PATH + "/delete", ctx -> gradeController.deleteGrade(ctx));
+		app.post(GRADE_PATH + "/reademp", ctx -> gradeController.readGradesFromEmployee(ctx));
+		app.post(GRADE_PATH + "/readds", ctx -> gradeController.readGradesFromDs(ctx));
+		app.post(GRADE_PATH + "/readbc", ctx -> gradeController.readGradesFromBenCo(ctx));
+
 	}
 	
 }

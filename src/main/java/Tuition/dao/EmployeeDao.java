@@ -22,4 +22,6 @@ public interface EmployeeDao {
 
 	public Employee readBenCo(int employeeId);
 
+	public Employee readEmployeeOfRequest(int requestId);
+
 }

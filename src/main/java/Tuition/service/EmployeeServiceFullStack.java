@@ -67,4 +67,9 @@ public class EmployeeServiceFullStack implements EmployeeService {
 		return employeeDao.readBenCo(employeeId);
 	}
 
+	@Override
+	public Employee readEmployeeOfRequest(int requestId) {
+		return employeeDao.readEmployeeOfRequest(requestId);
+	}
+
 }

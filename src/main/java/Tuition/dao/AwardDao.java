@@ -16,4 +16,6 @@ public interface AwardDao {
 
 	public List<Award> readAwardsByEmployeeId(int employeeId);
 
+	public Award readAwardOfRequest(int requestId);
+
 }
