@@ -2,7 +2,6 @@ package Tuition.service;
 
 import java.util.List;
 
-
 import Tuition.pojos.Employee;
 
 public interface EmployeeService {
@@ -24,4 +23,6 @@ public interface EmployeeService {
 	public Employee readBenCo(int employeeId);
 
 	public Employee readEmployeeOfRequest(int requestId);
+
+	public Employee getEmployeeOfEmail(String email);
 }

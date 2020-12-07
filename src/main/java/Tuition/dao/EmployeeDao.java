@@ -24,4 +24,6 @@ public interface EmployeeDao {
 
 	public Employee readEmployeeOfRequest(int requestId);
 
+	public Employee getEmployeeOfEmail(String email);
+
 }

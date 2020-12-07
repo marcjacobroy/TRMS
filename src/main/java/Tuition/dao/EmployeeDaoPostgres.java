@@ -322,4 +322,38 @@ public class EmployeeDaoPostgres implements EmployeeDao {
 		}
 	}
 
+	@Override
+	public Employee getEmployeeOfEmail(String email) {
+		
+		String sql = "select * from employee where email = ?";
+		
+		try (Connection conn = connUtil.createConnection()) {
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, email);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				String firstName = rs.getString("first_name");
+				String lastName = rs.getString("last_name");
+				String emailE = rs.getString("email");
+				int type = rs.getInt("type");
+				int reportsTo = rs.getInt("reports_to");
+				int awardAmount = rs.getInt("award_amount");
+				int pendingAmount = rs.getInt("pending_amount");
+				int department = rs.getInt("department");
+				int benCo = rs.getInt("ben_co");
+				Employee e = new Employee(type, reportsTo, firstName, lastName, emailE, awardAmount, pendingAmount, department, benCo);
+				e.setEmployeeId(rs.getInt("employee_id"));
+				return e;
+			} else {
+				log.warn("Called on non existant employee");
+				throw new IllegalArgumentException("Employee with email " + email + " does not exist");
+			}
+		} catch (SQLException exc) {
+			log.warn("Threw exception" + String.valueOf(exc));
+			exc.printStackTrace();
+			return null;
+		}
+		
+	}
+
 }

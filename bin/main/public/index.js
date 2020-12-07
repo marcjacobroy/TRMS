@@ -62,7 +62,14 @@ let loginGuest = function() {
         event.preventDefault();
         event.stopPropagation();
 
-        let id = document.getElementById("idLogin").value;
+        let email = document.getElementById("emailLogin").value;
+        
+        empEndpoint = "/employee/email";
+        empVerb = "POST";
+        empBody = "email=" + email;
+        empOutput = true;
+        let employee = ajaxRequest(empEndpoint, empVerb, empBody, empOutput);
+        let id = employee.employeeId;
         sessionStorage.setItem('id', id);
         viewDashboardRedirect();
     }, true);

@@ -159,4 +159,16 @@ public class EmployeeController {
 		}
 	}
 	
+	public void getEmployeeOfEmail(Context ctx) {
+		
+		String email = ctx.formParam("email");
+		System.out.println("email is " + email);
+		
+		try {
+			ctx.json(employeeService.getEmployeeOfEmail(email));
+		} catch (Exception e) {
+			ctx.html(String.valueOf(e));
+		}
+	}
+	
 }

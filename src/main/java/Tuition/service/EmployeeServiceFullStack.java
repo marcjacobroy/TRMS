@@ -72,4 +72,9 @@ public class EmployeeServiceFullStack implements EmployeeService {
 		return employeeDao.readEmployeeOfRequest(requestId);
 	}
 
+	@Override
+	public Employee getEmployeeOfEmail(String email) {
+		return employeeDao.getEmployeeOfEmail(email);
+	}
+
 }

@@ -50,6 +50,7 @@ public class ServerDriver {
 		app.post(EMPLOYEE_PATH + "/update", ctx -> employeeController.updateEmployee(ctx));
 		app.delete(EMPLOYEE_PATH, ctx -> employeeController.deleteEmployee(ctx));
 		app.post(EMPLOYEE_PATH + "/requestId", ctx -> employeeController.readEmployeeOfRequest(ctx));
+		app.post(EMPLOYEE_PATH + "/email", ctx -> employeeController.getEmployeeOfEmail(ctx));
 		
 		app.post(EVENT_PATH + "/id", ctx -> eventController.readEvent(ctx));
 		app.post(EVENT_PATH, ctx -> eventController.createEvent(ctx));
