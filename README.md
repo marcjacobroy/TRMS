@@ -35,7 +35,7 @@ To-do list:
    
 * Clone this repo: git clone https://github.com/marcjacobroy/TRMS
 * Run the provided SQL script to construct the database in a PostgreSQL database
-* Set environment variables to conncet to databse: 
+* Set environment variables to conncet to database: 
    * TRMS_URL : URL of the database
    * TRMS_USERNAME : Username for your local install of postgres
    * TRMS_PASSWORD : Password of your local install
