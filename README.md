@@ -2,44 +2,40 @@
 
 ## Project Description
 
-Here goes your awesome project description!
+The purpose of TRMS is to provide a system that encourages quality knowledge growth relevant to an individual’s expertise. Currently, TRMS provides reimbursements for university courses, seminars, certification preparation classes, certifications, and technical training. The decision has been made to develop a BPMsolution for this system to improve the timeliness and accuracy of approvals. The current system relies solely on email communication, requiring manual lookups of available funds and is error-prone due to inbox clutter and incorrect routing of tasks. Furthermore, there is no way to record and report on reimbursements awarded, and so the company has no way to identify highly-invested courses that could be developed to be offered in-house.
 
 ## Technologies Used
 
-* Tech 1 - version 1.0
-* Tech 2 - version 2.0
-* Tech 3 - version 3.0
+
+ * Java built application
+ * Utilizes JDBC to connect to a Postgres database.
+ * Exposes HTTP endpoints through the use of Javalin.
+ * Log4j for logging throughout the program.
+ * Junit for unit testing
+ * Mockito for dependency based testing to ensure proper unit tests.
+ * Fully functional frontend
+ * HTML for page structure
+ * CSS for page styles
+ * JavaScript for page functionality
+ * Utilize AJAX for acquiring resources
+
 
 ## Features
 
-List of features ready and TODOs for future development
-* Awesome feature 1
-* Awesome feature 2
-* Awesome feature 3
+* Log-in as an employee, supervisor, department head, or benefits coordiator
+* Create a reimbursement request
+* Approve reimbursement requests as an elevated user
+* Request gradually moves through approval process until final benefits coordinator approval
 
 To-do list:
-* Wow improvement to be done 1
-* Wow improvement to be done 2
+* Integrate JWT in order to provide better protection for API endpoints
+* Improve visual appeal and uesr-friendliness of front-end application 
 
 ## Getting Started
    
-(include git clone command)
-(include all environment setup steps)
-
-> Be sure to include BOTH Windows and Unix command  
-> Be sure to mention if the commands only work on a specific platform (eg. AWS, GCP)
-
-- All the `code` required to get started
-- Images of what it should look like
-
-## Usage
-
-> Here, you instruct other people on how to use your project after they’ve installed it. This would also be a good place to include screenshots of your project in action.
-
-## Contributors
-
-> Here list the people who have contributed to this project. (ignore this section, if its a solo project)
-
-## License
-
-This project uses the following license: [<license_name>](<link>).
+Clone this repo: git clone https://github.com/marcjacobroy/TRMS
+Run the provided SQL script to construct the database in a PostgreSQL database
+Set environment variables to conncet to databse: 
+ * TRMS_URL : URL of the database
+ * TRMS_USERNAME : Username for your local install of postgres
+ * TRMS_PASSWORD : Password of your local install
